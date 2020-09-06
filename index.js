@@ -72,7 +72,7 @@ app.post('/sms', (req, res) => {
               if (parseInt(userArr[4]) >= 1 && parseInt(userArr[4]) <= 3) {
                 //Gender choice is correct
                 //fetch records from database
-                query = 'select * from doctors';
+                let query = 'select * from doctors';
                 mysqlConnection.query(query, (err, rows, fields) => {
                   if (!err) {
                     console.log(rows);
