@@ -4,6 +4,7 @@ const MessagingResponse = twilio.twiml.MessagingResponse;
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mysqlConnection = require('./mysql/connection');
+const { query } = require('express');
 // const accnt_sid = 'AC34364b77470b6dc9dfc89002aa7e6010';
 // const auth_token = '4ffa3eaf887aba8947add20186990b64';
 // const client = twilio(accnt_sid, auth_token);
@@ -71,9 +72,20 @@ app.post('/sms', (req, res) => {
               if (parseInt(userArr[4]) >= 1 && parseInt(userArr[4]) <= 3) {
                 //Gender choice is correct
                 //fetch records from database
-                resp.message(`Fetching list of doctors!`);
+                query = 'select * from doctors';
+                mysqlConnection.query(query, (err, rows, fields) => {
+                  if (!err) {
+                    console.log(rows);
+                    resp.message(`Successfuly fetched doctors! Yay!`);
+                    res.status(200).send(resp.toString());
+                  } else {
+                    console.log(err);
+                    resp.message(`Failed to load doctors. Please try again!`);
+                    res.status(500).send(resp.toString());
+                  }
+                });
                 req.session.info = [];
-                res.status(200).send(resp.toString());
+                // res.status(200).send(resp.toString());
               } else {
                 //Gender choice is wrong
                 resp.message(
