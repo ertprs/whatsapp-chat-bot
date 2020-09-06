@@ -148,8 +148,28 @@ app.post('/sms', (req, res) => {
               if (parseInt(userArr[4]) >= 1 && parseInt(userArr[4]) <= 3) {
                 //fetch records from database
                 resp.message(`डॉक्टरों की सूची का इंतजार करें`);
+                let query = 'select * from doctors';
+                mysqlConnection.query(query, (err, rows, fields) => {
+                  if (!err) {
+                    // console.log(rows);
+                    resp.message(`Fetching your doctors...`);
+                    for (doctor of rows) {
+                      sendMessage(
+                        userPhoneNum,
+                        buzzPhoneNum,
+                        `*Name:*\t${doctor.name}\n*Speciality:*\t${doctor.field}\n*Experience:*\t${doctor.exp}`,
+                        doctor.imageurl
+                      );
+                    }
+                    res.status(200).send(resp.toString());
+                  } else {
+                    console.log(err);
+                    resp.message(`Failed to load doctors. Please try again!`);
+                    res.status(500).send(resp.toString());
+                  }
+                });
                 req.session.info = [];
-                res.status(200).send(resp.toString());
+                // res.status(200).send(resp.toString());
               } else {
                 //Invalid gender selection code here
                 resp.message(
