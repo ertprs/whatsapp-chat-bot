@@ -4,7 +4,7 @@ const MessagingResponse = twilio.twiml.MessagingResponse;
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const mysqlConnection = require('./mysql/connection');
-const { query } = require('express');
+const sendMessage = require('./sendMessage');
 // const accnt_sid = 'AC34364b77470b6dc9dfc89002aa7e6010';
 // const auth_token = '4ffa3eaf887aba8947add20186990b64';
 // const client = twilio(accnt_sid, auth_token);
@@ -29,6 +29,13 @@ app.get('/', (req, res) => {
 app.post('/sms', (req, res) => {
   const resp = new MessagingResponse();
   const userMsg = req.body.Body.trim();
+  //   console.log(req.body);
+  const userPhoneNum = req.body.From;
+  const buzzPhoneNum = req.body.To;
+
+  //   console.log(
+  //     `User Number: ${userPhoneNum}\n Business Number: ${buzzPhoneNum}`
+  //   );
 
   let userArr = req.session.info || [];
 
@@ -75,16 +82,17 @@ app.post('/sms', (req, res) => {
                 let query = 'select * from doctors';
                 mysqlConnection.query(query, (err, rows, fields) => {
                   if (!err) {
-                    console.log(rows);
+                    // console.log(rows);
+                    resp.message(`Fetching your doctors...`);
                     for (doctor of rows) {
-                      //Process the objects
-                      let message = resp.message();
-                      message.body(
-                        `Name:${doctor.name}\nfield:${doctor.field}\nExperience:${doctor.exp}`
+                      sendMessage(
+                        userPhoneNum,
+                        buzzPhoneNum,
+                        `Name: ${doctor.name}\nSpeciality:${doctor.field}\nExperience:${doctor.exp}`,
+                        doctor.imageurl
                       );
-                      message.media(doctor.imageurl);
-                      res.status(200).send(resp.toString());
                     }
+                    res.status(200).send(resp.toString());
                   } else {
                     console.log(err);
                     resp.message(`Failed to load doctors. Please try again!`);

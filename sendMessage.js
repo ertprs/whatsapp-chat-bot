@@ -1,12 +1,14 @@
 const twilio = require('twilio');
-const twilio = require('twilio');
+const auth_token = 'ce681d52a248fcd5d37bb6dfa1bb2b30';
+const accnt_sid = 'AC34364b77470b6dc9dfc89002aa7e6010';
+const client = require('twilio')(accnt_sid, auth_token);
 
-const auth_token = '';
-const accnt_sid = '';
-const client = twilio(accnt_sid, auth_token);
-
-client.messages.create({
-    'from': 'whatsapp:+1',
-    'body': "Kindly tell us the patient's full name? Ex. Ashish Yadav",
-    'to': ''
-})
+const sendMessage = (userPhoneNum, buzzPhoneNum, body, media) => {
+  client.messages.create({
+    from: buzzPhoneNum,
+    body: body,
+    mediaUrl: media,
+    to: userPhoneNum,
+  });
+};
+module.exports = sendMessage;
