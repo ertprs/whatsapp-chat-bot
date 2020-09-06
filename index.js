@@ -147,12 +147,11 @@ app.post('/sms', (req, res) => {
             } else {
               if (parseInt(userArr[4]) >= 1 && parseInt(userArr[4]) <= 3) {
                 //fetch records from database
-                resp.message(`डॉक्टरों की सूची का इंतजार करें`);
                 let query = 'select * from doctors';
                 mysqlConnection.query(query, (err, rows, fields) => {
                   if (!err) {
                     // console.log(rows);
-                    resp.message(`Fetching your doctors...`);
+                    resp.message(`डॉक्टरों की सूची का इंतजार करें`);
                     for (doctor of rows) {
                       sendMessage(
                         userPhoneNum,
