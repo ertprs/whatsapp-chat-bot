@@ -54,7 +54,7 @@ app.post('/sms', (req, res) => {
       //English language chosen
       if (!userArr[2]) {
         resp.message(
-          `Book Phone Consultation with experienced doctors on WhatsApp in 4 simple steps-\n\n♀️/♂️ Tell us patient Name, Age and Gender\n\n👩‍⚕️Select a Doctor\n\n💸 Click on payment link and complete online payment \n\n📞 📃 Consult Doctor on Phone and receive Prescription on WhatsApp\n\nPlease enter patients name`
+          `Book *Phone Consultation* with experienced doctors on WhatsApp in 4 simple steps-\n\n♀️/♂️ Tell us patient Name, Age and Gender\n\n👩‍⚕️Select a Doctor\n\n💸 Click on payment link and complete online payment \n\n📞 📃 Consult Doctor on Phone and receive Prescription on WhatsApp\n\n*Please enter patients name*`
         );
         req.session.info = userArr;
         res.status(200).send(resp.toString());
@@ -88,7 +88,7 @@ app.post('/sms', (req, res) => {
                       sendMessage(
                         userPhoneNum,
                         buzzPhoneNum,
-                        `Name: ${doctor.name}\nSpeciality:${doctor.field}\nExperience:${doctor.exp}`,
+                        `*Name:*\t${doctor.name}\n*Speciality:*\t${doctor.field}\n*Experience:*\t${doctor.exp}`,
                         doctor.imageurl
                       );
                     }
@@ -104,7 +104,7 @@ app.post('/sms', (req, res) => {
               } else {
                 //Gender choice is wrong
                 resp.message(
-                  `That does not seem like a valid option.\n Select 1,2 or 3.\n\nTell us patient's gender as well\n1 for Male 👨‍🦰\n2 for Female 👩‍🦰\n3 for Other 🧑`
+                  `*That does not seem like a valid option*\n Select 1,2 or 3.\n\nTell us patient's gender as well\n1 for Male 👨‍🦰\n2 for Female 👩‍🦰\n3 for Other 🧑`
                 );
                 req.session.info.pop();
                 res.status(200).send(resp.toString());
@@ -113,7 +113,7 @@ app.post('/sms', (req, res) => {
           } else {
             //Age not in range
             resp.message(
-              `🙅‍♀️ That does not seem like a valid age.\n\nWhat is the patient's age, in years?Ex. 25`
+              `🙅‍♀️ *That does not seem like a valid age*\n\nWhat is the patient's age, in years?Ex. 25`
             );
             req.session.info.pop();
             res.status(200).send(resp.toString());
@@ -124,7 +124,7 @@ app.post('/sms', (req, res) => {
       //Hindi has been chosen
       if (!userArr[2]) {
         resp.message(
-          `4 सरल चरणों में व्हाट्सएप पर अनुभवी डॉक्टरों से परामर्श करें -\n\n♀️/‍♂️ हमें पेशंट का नाम, आयु और लिंग बताएं\n\n👩‍⚕️ डॉक्टर का चयन करें\n\n💸 भुगतान लिंक पर क्लिक करें और ऑनलाइन भुगतान पूरा करें\n\n📞 📃 डॉक्टर से फोन पर सलाह लें और व्हाट्सएप पर प्रिस्क्रिप्शन प्राप्त करें\n\n  कृपया पेशंट का पूरा नाम बताएं? उदाहरण: आशीष यादव`
+          `4 सरल चरणों में व्हाट्सएप पर अनुभवी डॉक्टरों से परामर्श करें -\n\n♀️/‍♂️ हमें पेशंट का नाम, आयु और लिंग बताएं\n\n👩‍⚕️ डॉक्टर का चयन करें\n\n💸 भुगतान लिंक पर क्लिक करें और ऑनलाइन भुगतान पूरा करें\n\n📞 📃 डॉक्टर से फोन पर सलाह लें और व्हाट्सएप पर प्रिस्क्रिप्शन प्राप्त करें\n\n*कृपया पेशंट का पूरा नाम बताएं?* उदाहरण: आशीष यादव`
         );
         req.session.info = userArr;
         res.status(200).send(resp.toString());
@@ -153,7 +153,7 @@ app.post('/sms', (req, res) => {
               } else {
                 //Invalid gender selection code here
                 resp.message(
-                  `यह एक वैध विकल्प की तरह नहीं लगता है। 1,2 या 3 भेजें।\n\nकृपया हमें पेशंट का लिंग बताएं\nपुरुष के लिए 1 👨‍🦰\nमहिला के लिए 2 👩‍🦰\nअन्य के लिए 3 🧑`
+                  `*यह एक वैध विकल्प की तरह नहीं लगता है।* 1,2 या 3 भेजें।\n\nकृपया हमें पेशंट का लिंग बताएं\nपुरुष के लिए 1 👨‍🦰\nमहिला के लिए 2 👩‍🦰\nअन्य के लिए 3 🧑`
                 );
                 req.session.info.pop();
                 res.status(200).send(resp.toString());
@@ -172,7 +172,7 @@ app.post('/sms', (req, res) => {
     } else {
       //Check for valid language choice
       resp.message(
-        `You did not select a valid number\n\nHello!\nनमस्ते 🙏\nWelcome to Doctor on Call service 👩‍⚕️\nडॉक्टर ऑन कॉल सेवा में आपका स्वागत है👨‍⚕️\n- 💬 Type and send 1 for English\n- 💬 हिंदी के लिए 2 लिख कर भेजे`
+        `*You did not select a valid number*\n\nHello!\nनमस्ते 🙏\nWelcome to Doctor on Call service 👩‍⚕️\nडॉक्टर ऑन कॉल सेवा में आपका स्वागत है👨‍⚕️\n- 💬 Type and send 1 for English\n- 💬 हिंदी के लिए 2 लिख कर भेजे`
       );
       req.session.info = [];
       res.status(200).send(resp.toString());
