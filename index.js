@@ -76,8 +76,15 @@ app.post('/sms', (req, res) => {
                 mysqlConnection.query(query, (err, rows, fields) => {
                   if (!err) {
                     console.log(rows);
-                    resp.message(`Successfuly fetched doctors! Yay!`);
-                    res.status(200).send(resp.toString());
+                    for (doctor of rows) {
+                      //Process the objects
+                      let message = resp.message();
+                      message.body(
+                        `Name:${doctor.name}\nfield:${doctor.field}\nExperience:${doctor.exp}`
+                      );
+                      message.media(doctor.imageurl);
+                      res.status(200).send(resp.toString());
+                    }
                   } else {
                     console.log(err);
                     resp.message(`Failed to load doctors. Please try again!`);
