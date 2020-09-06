@@ -17,6 +17,10 @@ app.use(
     })
 );
 
+app.get('/', (req, res) => {
+    res.status(200).send('Welocme to Visit app!')
+})
+
 app.post('/sms', (req, res) => {
     const resp = new MessagingResponse();
     const userMsg = req.body.Body.trim();
