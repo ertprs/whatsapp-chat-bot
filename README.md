@@ -14,7 +14,7 @@ If you don't want to host your code anywhere use Ngrok to test your app.
 You can also host your code on heroku and run your app.
 Just deploy your app on heroku and copy the home page(usually '/')
 
-#Twilio
+# Twilio
 Sign up on Twilio and set up a whatsapp sand-box.
 In the webhook settings just add the route:
 1. Ngrok - copy from the terminal and add /sms at last
