@@ -5,9 +5,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mysqlConnection = require('./mysql/connection');
 const sendMessage = require('./sendMessage');
-// const accnt_sid = 'AC34364b77470b6dc9dfc89002aa7e6010';
-// const auth_token = '4ffa3eaf887aba8947add20186990b64';
-// const client = twilio(accnt_sid, auth_token);
+
 const app = express();
 
 const port = process.env.PORT || 3000;
