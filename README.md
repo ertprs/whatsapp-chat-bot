@@ -1,5 +1,12 @@
 # whatsapp-chat-bot
 
+# Technology
+1. Node.js
+2. MySQL
+3. Twilio
+4. Ngrok
+5. Heroku
+
 # Installation
 1. Download the zip file or clone the repo in your desired directory.
 2. Open the directory and run npm install.
