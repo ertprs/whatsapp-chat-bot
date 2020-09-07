@@ -7,7 +7,7 @@ const mysqlConnection = require('./mysql/connection');
 const sendMessage = require('./sendMessage');
 
 const app = express();
-
+//Using forever
 const port = process.env.PORT || 3000;
 app.use(
   session({
